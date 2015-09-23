@@ -1,15 +1,17 @@
 package org.simple;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController(value="/")
+@Controller()
 public class SimpleController {
 
-	@RequestMapping(value="check")
-	public String healthy() {
-		
-		return "IMOK";
-
+	@RequestMapping("greet")
+	public String greet(@RequestParam(value="userName") String name, Model model){
+		model.addAttribute("name",name);
+		return "greet";
 	}
+	
 }
