@@ -17,8 +17,8 @@ public class SimpleApplicationTests {
 	public void test() {
 		
 		RestTemplate rest = new RestTemplate();
-		//String result = rest.getForObject("http://localhost:8080/check", String.class);
-		//Assert.assertEquals("IMOK",result);
+		String result = rest.getForObject("http://localhost:8080/check", String.class);
+		Assert.assertEquals("IMOK",result);
 	}
 
 }

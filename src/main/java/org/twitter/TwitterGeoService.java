@@ -1,11 +1,16 @@
 package org.twitter;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
+import org.simple.geo.CountryMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.social.twitter.api.Place;
+import org.springframework.social.twitter.api.PlaceType;
 import org.springframework.social.twitter.api.SearchResults;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
@@ -16,6 +21,8 @@ import org.springframework.stereotype.Component;
 public class TwitterGeoService {
 
 	private Twitter twitter;
+	@Autowired
+	private CountryMapper mapper;
 
 	@Inject
 	public TwitterGeoService(@Value("${twitter4j.oauth.consumerKey}") String consumerKey,
@@ -23,10 +30,12 @@ public class TwitterGeoService {
 			@Value("${twitter4j.oauth.accessToken}") String accessToken,
 			@Value("${twitter4j.oauth.accessTokenSecret}") String accessTokenSecret) {
 		twitter = new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+
 	}
 
 	public Stream<String> readLocation(String query) {
 		SearchResults search = twitter.searchOperations().search(query);
+
 		return search.getTweets().stream().filter(new Predicate<Tweet>() {
 
 			@Override
