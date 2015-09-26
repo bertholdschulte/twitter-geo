@@ -30,4 +30,8 @@ public class CountryGeo {
 	public String getName() {
 		return name;
 	}
+	
+	public String toString(){
+		return code+","+name+",lat:"+latitude+",long:"+longitude;
+	}
 }

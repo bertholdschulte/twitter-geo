@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SimpleController {
 
 	@Autowired
+	private TwitterGeoService twitterGeoService;
+	
+	@Autowired
 	private CountryMapper countryMapper;
 
 	@RequestMapping("heatmap")
-	public String greet(@RequestParam(value="userName") String name, Model model){
-		model.addAttribute("name",name);
-		model.addAttribute("countriesMap",countryMapper.getMap().values());
+	public String greet(@RequestParam(value="search") String search, Model model){
+		model.addAttribute("name",search);
+		model.addAttribute("locations",twitterGeoService.readLocations(search).toArray());
 		return "heatmap";
 	}
 	

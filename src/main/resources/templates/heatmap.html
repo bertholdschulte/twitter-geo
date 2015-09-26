@@ -33,8 +33,8 @@
 
 	/*<![CDATA[*/
 
-	var countries = /*[[${countriesMap}]]*/[];
-	var points = new Array(244);
+	var countries = /*[[${locations}]]*/[];
+	var points = new Array(countries.length);
 	for (var i = 0; i < countries.length; i++) {
 
 	     points[i] = new google.maps.LatLng(countries[i].latitude, countries[i].longitude);
