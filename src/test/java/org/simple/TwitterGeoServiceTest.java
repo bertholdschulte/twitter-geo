@@ -28,7 +28,7 @@ public class TwitterGeoServiceTest {
 	@Test
 	public void test() {
 		
-		Stream<CountryGeo> locations = twitterGeoService.readLocations("Bayern");
+		List<CountryGeo> locations = twitterGeoService.readLocations("Fussball");
 		locations.forEach(l->System.out.println(l));
 	}
 

@@ -1,6 +1,8 @@
 package org.simple;
 
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
@@ -31,16 +33,18 @@ public class TwitterGeoService {
 
 	}
 
-	public Stream<CountryGeo> readLocations(String query) {
+	public List<CountryGeo> readLocations(String query) {
 		SearchResults search = twitter.searchOperations().search(query);
 
-		return search.getTweets().stream().filter(new Predicate<Tweet>() {
+		return search.getTweets().stream().parallel().filter(new Predicate<Tweet>() {
 
 			@Override
 			public boolean test(Tweet t) {
 				return t.getUser() != null && t.getUser().getLocation() != null ? true : false;
 			}
-		}).map(s -> mapper.map(s.getUser().getLocation()));
+		}).map(s -> mapper.map(s.getUser().getLocation()))
+				.filter(g -> g.getLatitude().contains(".") && g.getLongitude().contains("."))
+				.collect(Collectors.toList());
 	}
 
 }

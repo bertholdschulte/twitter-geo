@@ -18,7 +18,7 @@ public class CountryMapperTest {
 	public void test() {
 		
 		CountryMapper map = new CountryMapper();
-		System.out.println(map.map("Düsseldorf").toString());
+		System.out.println(map.map("Hamburg").toString());
 		//Assert.assertEquals(244,map.getMap().size());
 	}
 	
