@@ -12,9 +12,6 @@ public class SimpleController {
 
 	@Autowired
 	private TwitterGeoService twitterGeoService;
-	
-	@Autowired
-	private CountryMapper countryMapper;
 
 	@RequestMapping("heatmap")
 	public String greet(@RequestParam(value="search") String search, Model model){

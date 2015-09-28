@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.simple.SimpleApplication;
 import org.simple.TwitterGeoService;
-import org.simple.geo.CountryGeo;
+import org.simple.geo.CityLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.social.twitter.api.Place;
@@ -28,7 +28,7 @@ public class TwitterGeoServiceTest {
 	@Test
 	public void test() {
 		
-		List<CountryGeo> locations = twitterGeoService.readLocations("Fussball");
+		List<CityLocation> locations = twitterGeoService.readLocations("Fussball");
 		locations.forEach(l->System.out.println(l));
 	}
 

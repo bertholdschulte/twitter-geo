@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
-import org.simple.geo.CountryGeo;
+import org.simple.geo.CityLocation;
 import org.simple.geo.CountryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class TwitterGeoService {
 
 	}
 
-	public List<CountryGeo> readLocations(String query) {
+	public List<CityLocation> readLocations(String query) {
 		SearchResults search = twitter.searchOperations().search(query);
 
 		return search.getTweets().stream().parallel().filter(new Predicate<Tweet>() {
@@ -42,8 +42,8 @@ public class TwitterGeoService {
 			public boolean test(Tweet t) {
 				return t.getUser() != null && t.getUser().getLocation() != null ? true : false;
 			}
-		}).map(s -> mapper.map(s.getUser().getLocation()))
-				.filter(g -> g.getLatitude().contains(".") && g.getLongitude().contains("."))
+		}).map(s -> mapper.getMap().get(s.getUser().getLocation()))
+				.filter(g -> g!=null && g.getLatitude().contains(".") && g.getLongitude().contains("."))
 				.collect(Collectors.toList());
 	}
 
