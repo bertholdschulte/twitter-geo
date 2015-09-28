@@ -11,6 +11,9 @@ import org.simple.geo.CityLocation;
 import org.simple.geo.CountryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.YamlProcessor.ResolutionMethod;
+import org.springframework.social.twitter.api.SearchParameters;
+import org.springframework.social.twitter.api.SearchParameters.ResultType;
 import org.springframework.social.twitter.api.SearchResults;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
@@ -34,7 +37,10 @@ public class TwitterGeoService {
 	}
 
 	public List<CityLocation> readLocations(String query) {
-		SearchResults search = twitter.searchOperations().search(query);
+		SearchParameters searchParameters = new SearchParameters(query);
+		searchParameters.count(100);
+		searchParameters.resultType(ResultType.RECENT);
+		SearchResults search = twitter.searchOperations().search(searchParameters);
 
 		return search.getTweets().stream().parallel().filter(new Predicate<Tweet>() {
 
