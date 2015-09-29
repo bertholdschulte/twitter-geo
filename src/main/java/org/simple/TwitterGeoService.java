@@ -36,21 +36,29 @@ public class TwitterGeoService {
 
 	}
 
-	public List<CityLocation> readLocations(String query) {
+	public GeoData readLocations(String query) {
 		SearchParameters searchParameters = new SearchParameters(query);
 		searchParameters.count(100);
 		searchParameters.resultType(ResultType.RECENT);
 		SearchResults search = twitter.searchOperations().search(searchParameters);
+		GeoData geoData = new GeoData();
 
-		return search.getTweets().stream().parallel().filter(new Predicate<Tweet>() {
+		List<CityLocation> locations = search.getTweets().stream().filter(new Predicate<Tweet>() {
 
 			@Override
 			public boolean test(Tweet t) {
-				return t.getUser() != null && t.getUser().getLocation() != null ? true : false;
+				geoData.increaseCount();
+				if (t.getUser() != null && t.getUser().getLocation() != null) {
+					geoData.increaseProvided();
+					return true;
+				} else {
+					return false;
+				}
 			}
-		}).map(s -> mapper.getMap().get(s.getUser().getLocation()))
-				.filter(g -> g!=null && g.getLatitude().contains(".") && g.getLongitude().contains("."))
-				.collect(Collectors.toList());
+		}).map(s -> mapper.find(s.getUser().getLocation())).filter(g -> g != null).collect(Collectors.toList());
+		geoData.setLocations(locations);
+		geoData.setHits(locations.size());
+		return geoData;
 	}
 
 }

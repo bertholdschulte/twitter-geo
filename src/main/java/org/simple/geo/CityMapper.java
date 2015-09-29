@@ -4,11 +4,16 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Component
 public class CityMapper {
@@ -39,4 +44,28 @@ public class CityMapper {
 		return map;
 	}
 
+	public CityLocation find(String location) {
+
+		List<String> matchingKeys = map.keySet().stream().parallel().filter(new Predicate<String>() {
+
+			@Override
+			public boolean test(String t) {
+				try {
+					boolean matches = !StringUtils.isEmpty(location) && t.matches(".*" + Pattern.quote(location.trim()) + ".*");
+					if(matches){
+						System.out.println(location + ":" +t);
+					}
+					return matches;// ||
+																					// soundex.difference(t,
+																					// term)>2;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+		}).collect(Collectors.toList());
+		System.out.println(matchingKeys.size());
+		return matchingKeys.size() > 0 ? map.get(matchingKeys.get(0)) : null;
+	}
 }

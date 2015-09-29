@@ -22,7 +22,10 @@ public class TwitterGeoController {
 		}
 		model.addAttribute("message",String.format("Heatmap for: %s",query));
 		model.addAttribute("query",query);
-		model.addAttribute("locations",twitterGeoService.readLocations(query).toArray());
+		model.addAttribute("locations",twitterGeoService.readLocations(query).getLocations().toArray());
+		model.addAttribute("geoLocationProvided",twitterGeoService.readLocations(query).getLocationProvided());
+		model.addAttribute("geoHits",twitterGeoService.readLocations(query).getHits());
+		model.addAttribute("geoCount",twitterGeoService.readLocations(query).getCount());
 		return "heatmap";
 	}
 	
