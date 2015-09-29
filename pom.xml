@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.bschulte</groupId>
-	<artifactId>spring-boot-web</artifactId>
+	<artifactId>twitter-geo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>new</name>
-	<description>empty slim web-project based on spring boot</description>
+	<description>slim web-project to show tweet locations</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

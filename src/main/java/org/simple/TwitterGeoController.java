@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller()
-public class SimpleController {
+public class TwitterGeoController {
 
 	@Autowired
 	private TwitterGeoService twitterGeoService;
 
 	@RequestMapping(value="/", method = {RequestMethod.POST,RequestMethod.GET})
-	public String greet(@RequestParam(value="search") String query, Model model){
+	public String greet(@RequestParam(value="search", required=false) String query, Model model){
 		if(StringUtils.isEmpty(query)){
 			model.addAttribute("message","Submit a term.");
 			return "heatmap";
