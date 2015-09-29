@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CountryMapper {
+public class CityMapper {
 
 	private HashMap<String, CityLocation> map = new HashMap<String, CityLocation>();
 

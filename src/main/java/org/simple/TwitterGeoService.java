@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import javax.inject.Inject;
 
 import org.simple.geo.CityLocation;
-import org.simple.geo.CountryMapper;
+import org.simple.geo.CityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.YamlProcessor.ResolutionMethod;
@@ -25,7 +25,7 @@ public class TwitterGeoService {
 
 	private Twitter twitter;
 	@Autowired
-	private CountryMapper mapper;
+	private CityMapper mapper;
 
 	@Inject
 	public TwitterGeoService(@Value("${twitter4j.oauth.consumerKey}") String consumerKey,
