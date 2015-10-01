@@ -1,14 +1,12 @@
 package org.simple.geo;
 
-import static org.junit.Assert.*;
-
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.Soundex;
 import org.junit.Test;
 
 public class SoundexTest {
 
-	@Test
+	//@Test
 	public void test() {
 
 		Soundex x  = new Soundex();

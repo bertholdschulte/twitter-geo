@@ -59,14 +59,12 @@ public class CityMapper {
 			@Override
 			public boolean test(String t) {
 				try {
-					boolean matches = !StringUtils.isEmpty(location) && t.matches(Pattern.quote(location.trim().toLowerCase()) + ".*") && 
-							soundex.difference(t.toLowerCase(), location.toLowerCase().trim())==4;
+					boolean matches = !StringUtils.isEmpty(location) && t.matches(Pattern.quote(location.trim().toLowerCase()) + ".*"); 
+							//&& soundex.difference(t.toLowerCase(), location.toLowerCase().trim())==4;
  					if(matches){
 						System.out.println(location + ":" +t);
 					}
-					return matches;// ||
-																					// soundex.difference(t,
-																					// term)>2;
+					return matches;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
