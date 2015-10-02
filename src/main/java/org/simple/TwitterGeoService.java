@@ -32,7 +32,7 @@ public class TwitterGeoService {
  		SearchResults search = twitter.searchOperations().search(searchParameters);
 		GeoData geoData = new GeoData();
  
-		List<CityLocation> locations = search.getTweets().stream().filter(new Predicate<Tweet>() {
+		List<CityLocation> locations = search.getTweets().stream().parallel().filter(new Predicate<Tweet>() {
  
  			@Override
  			public boolean test(Tweet t) {

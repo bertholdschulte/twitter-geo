@@ -64,11 +64,6 @@ html, body {
 </head>
 
 <body>
-	<div>
-		<span class="container" th:text="${message}" /> <span class="container"> Count: <span th:text="${geoCount}" />, Provided: <span
-			th:text="${geoLocationProvided}" />, Hits: <span th:text="${geoHits}" />
-		</span>
-	</div>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -88,6 +83,15 @@ html, body {
 			<!--/.navbar-collapse -->
 		</div>
 	</nav>
+
+	<div class="container">
+		<strong><span th:text="${message}" /></strong>
+		<hr />
+		Tweets: <span th:text="${geoCount}" >-</span> | Tweets with any location description: <span th:text="${geoLocationProvided}">-</span> | Location hits on the map: <span
+			th:text="${geoHits}">-</span>
+		<hr />
+	</div>
+
 	<div id="map" class="container"></div>
 	<script type="text/javascript" src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
