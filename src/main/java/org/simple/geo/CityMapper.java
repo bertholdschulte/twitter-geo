@@ -48,7 +48,7 @@ public class CityMapper {
  		return map;
  	}
 
-	public CityLocation find(String location, String timeZone) {
+	public CityLocation find(String locationName, String timeZone) {
 
 		Optional<CityLocation> matches = map
 				.values().stream().filter(new Predicate<CityLocation>() {
@@ -57,8 +57,8 @@ public class CityMapper {
 			public boolean test(CityLocation t) {
 				try {
 					
-					boolean isMatch = !StringUtils.isEmpty(location) && location.matches(".*"+Pattern.quote(t.getName())+"( .*|$)")
-							&& soundex.difference(t.getName().toLowerCase(), location.toLowerCase().trim())==4
+					boolean isMatch = !StringUtils.isEmpty(locationName) && locationName.matches(".*"+Pattern.quote(t.getName())+"( .*|$)")
+							&& soundex.difference(t.getName().toLowerCase(), locationName.toLowerCase().trim())==4
 							&& !StringUtils.isEmpty(t.getTimeZone()) && t.getTimeZone().toLowerCase().contains(timeZone.toLowerCase());
  					if(isMatch){
  						System.out.println(t);
