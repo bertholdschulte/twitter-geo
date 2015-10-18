@@ -6,12 +6,14 @@ public class CityLocation {
 	private String latitude;
 	private String longitude;
 	private String name;
+	private String timeZone;
 
-	public CityLocation(String name, String latitude, String longitude, String code) {
+	public CityLocation(String name, String latitude, String longitude, String code, String timeZone) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.name = name;
 		this.code = code;
+		this.timeZone = timeZone;
 
 	}
 
@@ -30,8 +32,12 @@ public class CityLocation {
 	public String getName() {
 		return name;
 	}
-	
-	public String toString(){
-		return code+","+name+",lat:"+latitude+",long:"+longitude;
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+
+	public String toString() {
+		return String.format("code: %s, timezone: %s, name: %s, latitude: %s, longitude: %s", code, timeZone, name, latitude, longitude);
 	}
 }

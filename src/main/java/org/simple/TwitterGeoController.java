@@ -1,5 +1,6 @@
 package org.simple;
 
+import org.simple.geo.GeoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +21,13 @@ public class TwitterGeoController {
 			model.addAttribute("message","Submit a term.");
 			return "heatmap";
 		}
+		GeoData geoData = twitterGeoService.readLocations(query);
 		model.addAttribute("message",String.format("Heatmap for: %s",query));
 		model.addAttribute("query",query);
-		model.addAttribute("locations",twitterGeoService.readLocations(query).getLocations().toArray());
-		model.addAttribute("geoLocationProvided",twitterGeoService.readLocations(query).getLocationProvided());
-		model.addAttribute("geoHits",twitterGeoService.readLocations(query).getHits());
-		model.addAttribute("geoCount",twitterGeoService.readLocations(query).getCount());
+		model.addAttribute("locations",geoData.getLocations().toArray());
+		model.addAttribute("geoLocationProvided",geoData.getLocationProvided());
+		model.addAttribute("geoHits",geoData.getHits());
+		model.addAttribute("geoCount",geoData.getCount());
 		return "heatmap";
 	}
 	

@@ -1,7 +1,12 @@
 package org.simple;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.simple.geo.GeoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -28,4 +33,6 @@ public class TwitterGeoServiceTest {
 	public void testReadRaw() throws Exception {
 		System.out.println(twitterGeoService.readRaw("Rollling Stones"));
 	}
+	
+	
 }

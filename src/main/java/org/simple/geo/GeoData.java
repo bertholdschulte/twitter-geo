@@ -1,12 +1,9 @@
-package org.simple;
+package org.simple.geo;
 
 import java.util.List;
 
-import org.simple.geo.CityLocation;
-
 public class GeoData {
 
-	private int hits;
 	private int count;
 	private List<CityLocation> locations;
 	private int locationProvided;
@@ -24,7 +21,11 @@ public class GeoData {
 	}
 
 	public int getHits() {
-		return hits;
+		if (locations != null) {
+			return locations.size();
+		} else {
+			return 0;
+		}
 	}
 
 	public int getCount() {
@@ -37,10 +38,6 @@ public class GeoData {
 
 	public int getLocationProvided() {
 		return locationProvided;
-	}
-
-	public void setHits(int hits) {
-		this.hits=hits;
 	}
 
 }
