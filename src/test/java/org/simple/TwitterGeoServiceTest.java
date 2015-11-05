@@ -1,22 +1,17 @@
 package org.simple;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.simple.geo.GeoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = { TwitterGeoApplication.class, TwitterGeoService.class })
 @WebAppConfiguration
-@TestPropertySource(locations="classpath:twitter.properties")
+//@TestPropertySource(locations="classpath:twitter.properties")
 public class TwitterGeoServiceTest {
 
 	@Autowired
