@@ -4,9 +4,9 @@ import java.util.List;
 
 public class GeoData {
 
-	private int count;
+	private int count = 0;
 	private List<CityLocation> locations;
-	private int locationProvided;
+	private int locationProvided =0;
 
 	public void increaseProvided() {
 		locationProvided++;

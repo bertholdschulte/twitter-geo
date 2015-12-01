@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.codec.language.DoubleMetaphone;
+import org.apache.commons.codec.language.MatchRatingApproachEncoder;
+import org.apache.commons.codec.language.RefinedSoundex;
 import org.apache.commons.codec.language.Soundex;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,6 +25,9 @@ public class CityMapper {
 
 	private SortedMap<String, CityLocation> map = new TreeMap<String, CityLocation>();
 	private Soundex soundex = new Soundex();
+	private RefinedSoundex refsoundex = new RefinedSoundex();
+	private DoubleMetaphone metaphone = new DoubleMetaphone();
+	private MatchRatingApproachEncoder matchRating = new MatchRatingApproachEncoder();
 
 	@PostConstruct
 	protected void load() {
@@ -35,44 +41,49 @@ public class CityMapper {
 			@Override
 			public void accept(String s) {
 				String[] geo = s.split("\t");
-				if (geo.length >17) { // depends on csv/txt files
-				//	map.put(geo[0], new CityLocation(geo[0], geo[1], geo[2], geo[3])); // depends on csv/txt files
-					map.put(geo[1], new CityLocation(geo[1], geo[4], geo[5], geo[8], geo[17]));
- 				}
+				if (geo.length > 17) { // depends on csv/txt files
+					// map.put(geo[0], new CityLocation(geo[0], geo[1], geo[2], geo[3])); // depends on csv/txt files
+					map.put(geo[1], new CityLocation(geo[1], Double.parseDouble(geo[4]), Double.parseDouble(geo[5]), geo[8], geo[17]));
+				}
 			}
 		});
 
 	}
 
 	public Map<String, CityLocation> getMap() {
- 		return map;
- 	}
+		return map;
+	}
 
 	public CityLocation find(String locationName, String timeZone) {
 
-		Optional<CityLocation> matches = map
-				.values().stream().filter(new Predicate<CityLocation>() {
-		
+		Optional<CityLocation> matches = map.values().stream().filter(new Predicate<CityLocation>() {
+
 			@Override
 			public boolean test(CityLocation t) {
 				try {
+					//System.out.println(timeZone + ":"+t.getTimeZone());
 					
-					boolean isMatch = !StringUtils.isEmpty(locationName) && locationName.matches(".*"+Pattern.quote(t.getName())+"( .*|$)")
-							&& soundex.difference(t.getName().toLowerCase(), locationName.toLowerCase().trim())==4
-							&& !StringUtils.isEmpty(t.getTimeZone()) && t.getTimeZone().toLowerCase().contains(timeZone.toLowerCase());
- 					if(isMatch){
- 						System.out.println(t);
+					boolean isMatch = !StringUtils.isEmpty(locationName) && t.getName().matches(".*" + Pattern.quote(locationName) + "( .*|$)")
+					 //&& 
+				//refsoundex.difference(t.getName().toLowerCase(), locationName.toLowerCase().trim())==4
+				//&&	matchRating.isEncodeEquals(t.getName().toLowerCase(), locationName.toLowerCase().trim())
+				//&&  soundex.difference(t.getName().toLowerCase(), locationName.toLowerCase().trim())==4
+				//&&	metaphone.isDoubleMetaphoneEqual(t.getName().toLowerCase(), locationName.toLowerCase().trim());
+					//		&& !StringUtils.isEmpty(t.getTimeZone()) && t.getTimeZone().toLowerCase().contains(timeZone.toLowerCase());
+					;				
+					if (isMatch) {
+						System.out.println(t.getName()+ ":"+locationName);
 					}
 					return isMatch;
 				} catch (Throwable e) {
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 				return false;
 			}
 		}).findFirst();
-		if(matches.isPresent()){
-			return  matches.get();
-		}else{
+		if (matches.isPresent()) {
+			return matches.get();
+		} else {
 			return null;
 		}
 	}

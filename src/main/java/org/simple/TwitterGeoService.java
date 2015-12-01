@@ -1,14 +1,22 @@
 package org.simple;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.mockito.internal.util.collections.ArrayUtils;
 import org.simple.geo.CityLocation;
 import org.simple.geo.CityMapper;
 import org.simple.geo.GeoData;
+import org.simple.geo.GeoTweet;
+import org.simple.geo.Statuses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.twitter.api.GeoCode;
 import org.springframework.social.twitter.api.SearchParameters;
 import org.springframework.social.twitter.api.SearchParameters.ResultType;
 import org.springframework.social.twitter.api.SearchResults;
@@ -30,6 +38,7 @@ public class TwitterGeoService {
 		SearchParameters searchParameters = new SearchParameters(query);
 		searchParameters.count(100);
 		searchParameters.resultType(ResultType.RECENT);
+		searchParameters.geoCode(new GeoCode(50.938056,6.956944,40000));
 		SearchResults search = twitter.searchOperations().search(searchParameters);
 		GeoData geoData = new GeoData();
 
@@ -53,9 +62,26 @@ public class TwitterGeoService {
 	/*
 	 * for test purposes
 	 */
-	public String readRaw(String query) {
-		ResponseEntity<String> forEntity = twitter.restOperations().getForEntity(
-				"https://api.twitter.com/1.1/search/tweets.json?q=" + query + "&result_type=recent&count=100", String.class);
+	public GeoTweet readRaw(String query) {
+		ResponseEntity<GeoTweet> forEntity = twitter.restOperations().getForEntity(
+				"https://api.twitter.com/1.1/search/tweets.json?q=" + query + "&result_type=recent&count=100&geocode=50,9,1000mi", GeoTweet.class);
 		return forEntity.getBody();
+	}
+
+	public GeoData readExactLocations(String query) {
+		// TODO Auto-generated method stub
+		GeoData data = new GeoData();
+		
+		List<CityLocation> locations = Arrays.asList(readRaw(query).getStatuses()).stream().filter(s-> s != null && s.getGeo() != null && s.getGeo().getCoordinates().length==2).map(s->{
+			data.increaseCount();
+				data.increaseProvided();
+				return new CityLocation("foo",Double.parseDouble(s.getGeo().getCoordinates()[0]), Double.parseDouble(s.getGeo().getCoordinates()[1]), "XX", "UTC");
+		}
+			).collect(Collectors.toList());
+		
+		
+
+		data.setLocations(locations);
+		return data;
 	}
 }

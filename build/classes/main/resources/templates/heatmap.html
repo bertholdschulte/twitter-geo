@@ -1,0 +1,99 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Heatmap for twitters tweets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+<link rel='stylesheet' href='webjars/bootstrap/3.2.0/css/bootstrap.min.css' />
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;libraries=visualization">
+	
+</script>
+<script th:inline="javascript">
+	var map;
+	var heatmap;
+	function initMap() {
+		mapObject = new google.maps.Map(document.getElementById('map'), {
+			center : {
+				lat : 0,
+				lng : 0
+			},
+			zoom : 2
+		});
+
+		heatmap = new google.maps.visualization.HeatmapLayer({
+			data : points,
+			map : mapObject
+		});
+
+		map = mapObject;
+
+	}
+
+	/*<![CDATA[*/
+
+	var countries = /*[[${locations}]]*/[];
+	var points = new Array(countries.length);
+	for (var i = 0; i < countries.length; i++) {
+		points[i] = new google.maps.LatLng(countries[i].latitude,
+				countries[i].longitude);
+	}
+
+	/*]]>*/
+
+	window.onload = initMap;
+</script>
+
+
+<style type="text/css">
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	padding-top: 50px;
+}
+
+#map {
+	height: 100%;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Twitter Geo</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<form class="navbar-form navbar-right">
+					<div class="form-group">
+						<input name="search" type="text" placeholder="Search for ..." class="form-control" th:value="${query}" />
+					</div>
+					<button type="submit" class="btn btn-success">Show map</button>
+				</form>
+			</div>
+			<!--/.navbar-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">
+		<strong><span th:text="${message}" /></strong>
+		<hr />
+		Tweets: <span th:text="${geoCount}" >-</span> | Tweets with any location description: <span th:text="${geoLocationProvided}">-</span> | Location hits on the map: <span
+			th:text="${geoHits}">-</span>
+		<hr />
+	</div>
+
+	<div id="map" class="container"></div>
+	<script type="text/javascript" src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+</body>
+</html>

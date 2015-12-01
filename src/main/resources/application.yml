@@ -1,0 +1,9 @@
+server:
+ port: 8080
+
+twitter4j:
+ oauth:
+  consumerKey: ${consumerKey}
+  consumerSecret: ${consumerSecret}
+  accessToken: ${accessToken}
+  accessTokenSecret: ${accessTokenSecret}

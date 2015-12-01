@@ -21,7 +21,8 @@ public class TwitterGeoController {
 			model.addAttribute("message","Submit a term.");
 			return "heatmap";
 		}
-		GeoData geoData = twitterGeoService.readLocations(query);
+		GeoData geoData = twitterGeoService.readExactLocations(query);
+		//GeoData geoData = twitterGeoService.readLocations(query);
 		model.addAttribute("message",String.format("Heatmap for: %s",query));
 		model.addAttribute("query",query);
 		model.addAttribute("locations",geoData.getLocations().toArray());
