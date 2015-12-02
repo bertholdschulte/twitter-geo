@@ -43,7 +43,7 @@ public class CityMapper {
 				String[] geo = s.split("\t");
 				if (geo.length > 17) { // depends on csv/txt files
 					// map.put(geo[0], new CityLocation(geo[0], geo[1], geo[2], geo[3])); // depends on csv/txt files
-					map.put(geo[1], new CityLocation(geo[1], Double.parseDouble(geo[4]), Double.parseDouble(geo[5]), geo[8], geo[17]));
+					map.put(geo[1], new CityLocation(geo[1], geo[4], geo[5], geo[8], geo[17]));
 				}
 			}
 		});

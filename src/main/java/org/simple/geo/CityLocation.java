@@ -1,14 +1,20 @@
 package org.simple.geo;
 
-public class CityLocation {
+import java.io.Serializable;
 
+public class CityLocation implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4030561407061179623L;
 	private String code;
-	private double latitude;
-	private double longitude;
+	private String latitude;
+	private String longitude;
 	private String name;
 	private String timeZone;
 
-	public CityLocation(String name, double latitude, double longitude, String code, String timeZone) {
+	public CityLocation(String name, String latitude, String longitude, String code, String timeZone) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.name= name;
@@ -19,11 +25,13 @@ public class CityLocation {
 
 
 
-	public double getLatitude() {
+
+
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 

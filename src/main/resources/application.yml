@@ -7,3 +7,9 @@ twitter4j:
   consumerSecret: ${consumerSecret}
   accessToken: ${accessToken}
   accessTokenSecret: ${accessTokenSecret}
+  
+spring:
+   redis:
+      host: 192.168.99.100
+      port: 32768
+      
