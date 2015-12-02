@@ -1,5 +1,7 @@
 package org.simple.geo;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +21,13 @@ public class CityLocationRepositoryTest {
 	private CityLocationRepository cityLocationRepository;
 
 	@Test
-	public void test() {
-		cityLocationRepository.save(new CityLocation("Berlin", "0", "0", null, null));
+	public void testFindByName() {
+		//cityLocationRepository.save(new CityLocation("Berlin", "0", "0", null, null));
 		Assert.assertEquals("Berlin", cityLocationRepository.find("Berlin"));
 	}
 
+	@Test
+	public void testLookup() throws Exception {
+		 cityLocationRepository.lookup("city").stream().forEach(s->System.out.println(s));
+	}
 }

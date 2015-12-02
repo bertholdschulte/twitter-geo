@@ -17,6 +17,7 @@ import org.apache.commons.codec.language.DoubleMetaphone;
 import org.apache.commons.codec.language.MatchRatingApproachEncoder;
 import org.apache.commons.codec.language.RefinedSoundex;
 import org.apache.commons.codec.language.Soundex;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -28,7 +29,10 @@ public class CityMapper {
 	private RefinedSoundex refsoundex = new RefinedSoundex();
 	private DoubleMetaphone metaphone = new DoubleMetaphone();
 	private MatchRatingApproachEncoder matchRating = new MatchRatingApproachEncoder();
-
+	
+	@Autowired
+	private CityLocationRepository repo;
+	
 	@PostConstruct
 	protected void load() {
 
@@ -43,7 +47,9 @@ public class CityMapper {
 				String[] geo = s.split("\t");
 				if (geo.length > 17) { // depends on csv/txt files
 					// map.put(geo[0], new CityLocation(geo[0], geo[1], geo[2], geo[3])); // depends on csv/txt files
-					map.put(geo[1], new CityLocation(geo[1], geo[4], geo[5], geo[8], geo[17]));
+					CityLocation cityLocation = new CityLocation(geo[1], geo[4], geo[5], geo[8], geo[17]);
+					map.put(geo[1], cityLocation);
+					repo.save(cityLocation);
 				}
 			}
 		});
