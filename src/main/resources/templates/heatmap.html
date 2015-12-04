@@ -9,6 +9,8 @@
 	
 </script>
 <script th:inline="javascript">
+/*<![CDATA[*/
+           
 	var map;
 	var heatmap;
 	function initMap() {
@@ -24,27 +26,33 @@
 			data : points,
 			map : mapObject
 		});
-
+		
+		for (var j = 0; j < markers.length; j++) {
+			markers[j].setMap(mapObject);
+		}
 		map = mapObject;
+		
 
 	}
 
-	/*<![CDATA[*/
+	
 
 	var countries = /*[[${locations}]]*/[];
 	var points = new Array(countries.length);
+	var markers = new Array(countries.length);
+	
 	for (var i = 0; i < countries.length; i++) {
 		points[i] = new google.maps.LatLng(countries[i].latitude,
 				countries[i].longitude);
-		new google.maps.Marker({
-	    position: {lat: countries[i].latitude, lng: countries[i].longitude},
-	    map: heatmap,
-	    title: 'Uluru (Ayers Rock)'
-	 });
+		markers[i] = new google.maps.Marker({
+	    	position: {lat: countries[i].latitude, lng: countries[i].longitude},
+	    	title: countries[i].timeZone+ ': ' +countries[i].name
+	 	});
+		
 	}
 
 	/*]]>*/
-
+	
 	window.onload = initMap;
 </script>
 

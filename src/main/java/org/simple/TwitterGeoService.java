@@ -76,8 +76,9 @@ public class TwitterGeoService {
 		List<CityLocation> locations = Arrays.asList(readRaw(query).getStatuses()).stream().filter(s-> s != null && s.getGeo() != null && s.getGeo().getCoordinates().length==2).map(s->{
 			data.increaseCount();
 				data.increaseProvided();
-				System.out.println(s.getText()); 
-				return new CityLocation("foo",s.getGeo().getCoordinates()[0], s.getGeo().getCoordinates()[1], "XX", "UTC");
+				CityLocation cityLocation = new CityLocation(s.getText(),Double.parseDouble(s.getGeo().getCoordinates()[0]), Double.parseDouble(s.getGeo().getCoordinates()[1]), "XX", s.getCreated_at());
+				System.out.println(cityLocation);
+				return cityLocation;
 		}
 			).collect(Collectors.toList());
 		
