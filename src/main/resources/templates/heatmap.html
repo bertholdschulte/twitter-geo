@@ -36,6 +36,11 @@
 	for (var i = 0; i < countries.length; i++) {
 		points[i] = new google.maps.LatLng(countries[i].latitude,
 				countries[i].longitude);
+		new google.maps.Marker({
+	    position: {lat: countries[i].latitude, lng: countries[i].longitude},
+	    map: heatmap,
+	    title: 'Uluru (Ayers Rock)'
+	 });
 	}
 
 	/*]]>*/

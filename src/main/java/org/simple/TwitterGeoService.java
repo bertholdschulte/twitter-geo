@@ -53,6 +53,7 @@ public class TwitterGeoService {
 				} else {
 					return false;
 				}
+				
 			}
 		}).map(s -> mapper.find(s.getUser().getLocation(), s.getUser().getTimeZone())).filter(g -> g != null).collect(Collectors.toList());
 		geoData.setLocations(locations);
@@ -75,6 +76,7 @@ public class TwitterGeoService {
 		List<CityLocation> locations = Arrays.asList(readRaw(query).getStatuses()).stream().filter(s-> s != null && s.getGeo() != null && s.getGeo().getCoordinates().length==2).map(s->{
 			data.increaseCount();
 				data.increaseProvided();
+				System.out.println(s.getText()); 
 				return new CityLocation("foo",s.getGeo().getCoordinates()[0], s.getGeo().getCoordinates()[1], "XX", "UTC");
 		}
 			).collect(Collectors.toList());
