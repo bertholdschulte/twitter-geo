@@ -1,5 +1,7 @@
 package org.simple.geo;
 
+import java.net.URI;
+
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.Soundex;
 import org.junit.Test;
@@ -18,5 +20,5 @@ public class SoundexTest {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

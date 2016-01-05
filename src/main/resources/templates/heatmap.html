@@ -86,11 +86,14 @@ html, body {
 				<a class="navbar-brand" href="#">Twitter Geo</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
-				<form class="navbar-form navbar-right">
+				<form th:object="${searchForm}"  action="#" th:action="@{/search.do}" class="navbar-form navbar-right" method="post">
+					
 					<div class="form-group">
-						<input name="search" type="text" placeholder="Search for ..." class="form-control" th:value="${query}" />
+						<input type="text" placeholder="Search for ..." class="form-control" th:field="*{searchTerm}" th:errorclass="has-error"/>
 					</div>
+			
 					<button type="submit" class="btn btn-success">Show map</button>
+						
 				</form>
 			</div>
 			<!--/.navbar-collapse -->
@@ -98,7 +101,10 @@ html, body {
 	</nav>
 
 	<div class="container">
-		<strong><span th:text="${message}" /></strong>
+		<strong><span th:text="#{${message}}" /></strong> <span th:text="${searchForm.searchTerm}" />
+		<ul>
+  			<li th:each="err : ${#fields.errors('searchForm.searchTerm')}" th:text="#{${err}}" /> 
+		</ul>
 		<hr />
 		Tweets: <span th:text="${geoCount}" >-</span> | Tweets with any location description: <span th:text="${geoLocationProvided}">-</span> | Location hits on the map: <span
 			th:text="${geoHits}">-</span>

@@ -2,6 +2,8 @@ package org.simple;
 
 import static org.junit.Assert.*;
 
+import java.net.URI;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.simple.geo.Geo;
@@ -46,5 +48,5 @@ public class TwitterGeoServiceTest {
 		System.out.println(data.getLocations().get(0).getLatitude());
 		System.out.println(data.getLocations().get(0).getLongitude());
 	}
-	
+
 }
