@@ -1,6 +1,6 @@
 package org.simple.geo;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,5 +29,14 @@ public class CityLocationRepositoryTest {
 	@Test
 	public void testLookup() throws Exception {
 		 cityLocationRepository.lookup("city").stream().forEach(s->System.out.println(s));
+	}
+	
+	@Test
+	public void testScan() throws Exception {
+		cityLocationRepository.save(new CityLocation("Colo", 0d, 0d, "", ""));
+		cityLocationRepository.save(new CityLocation("Cologne", 0d, 0d, "", ""));
+		
+		List<String> results= cityLocationRepository.scan("Col");
+		Assert.assertEquals(2, results.size());
 	}
 }

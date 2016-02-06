@@ -1,13 +1,8 @@
 package org.simple;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.simple.geo.Geo;
 import org.simple.geo.GeoData;
-import org.simple.geo.GeoTweet;
-import org.simple.geo.Statuses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

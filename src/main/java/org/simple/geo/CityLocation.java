@@ -17,15 +17,15 @@ public class CityLocation implements Serializable {
 	public CityLocation(String name, Double latitude, Double longitude, String code, String timeZone) {
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.name= name;
+		this.name = name;
 		this.code = code;
 		this.timeZone = timeZone;
 
 	}
 
-
-
-
+	public CityLocation(String name, String latitude, String longitude, String code, String timeZone) {
+		this(name, Double.parseDouble(latitude), Double.parseDouble(longitude), code, timeZone);
+	}
 
 	public Double getLatitude() {
 		return latitude;
@@ -36,18 +36,13 @@ public class CityLocation implements Serializable {
 	}
 
 	public String toString() {
-		return String.format("code: %s, timezone: %s, name: %s, latitude: %s, longitude: %s", code, getTimeZone(), getName(), latitude, longitude);
+		return String.format("code: %s, timezone: %s, name: %s, latitude: %s, longitude: %s", code, getTimeZone(),
+				getName(), latitude, longitude);
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
-
-
-
-
 
 	public String getTimeZone() {
 		return timeZone;
