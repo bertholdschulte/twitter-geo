@@ -30,7 +30,6 @@ public class TwitterGeoController {
 		}
 
 		GeoData geoData = twitterGeoService.readExactLocations(searchForm.getSearchTerm());
-		//GeoData geoData = twitterGeoService.readLocations(query);
 		model.addAttribute("message","search.result");
 		model.addAttribute("searchForm",searchForm);
 		model.addAttribute("locations",geoData.getLocations().toArray());

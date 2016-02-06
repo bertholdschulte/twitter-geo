@@ -10,7 +10,6 @@ public class Statuses {
 	private String created_at;
 
 	public Geo getGeo() {
-		// TODO Auto-generated method stub
 		return geo;
 	}
 
@@ -19,7 +18,6 @@ public class Statuses {
 	}
 
 	public String getCreated_at() {
-		// TODO Auto-generated method stub
 		return created_at;
 	}
 }

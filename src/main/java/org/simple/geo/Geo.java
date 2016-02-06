@@ -9,7 +9,6 @@ public class Geo {
 	private String[] coordinates;
 
 	public String[] getCoordinates() {
-		// TODO Auto-generated method stub
 		return coordinates;
 	}
 

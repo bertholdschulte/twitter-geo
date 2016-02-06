@@ -23,10 +23,6 @@ public class CityLocation implements Serializable {
 
 	}
 
-
-
-
-
 	public Double getLatitude() {
 		return latitude;
 	}
@@ -39,15 +35,9 @@ public class CityLocation implements Serializable {
 		return String.format("code: %s, timezone: %s, name: %s, latitude: %s, longitude: %s", code, getTimeZone(), getName(), latitude, longitude);
 	}
 
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
-
 
 	public String getTimeZone() {
 		return timeZone;
