@@ -42,6 +42,8 @@ public class TwitterGeoController {
 	
 	@RequestMapping(value="/", method = {RequestMethod.GET})
 	public String heatmapGet(Model model){
+		model.addAttribute("message","search.result");
+		
 		model.addAttribute("searchForm", new SearchForm());
 		return "heatmap";
 	}
