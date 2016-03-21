@@ -91,7 +91,12 @@ html, body {
 					<div class="form-group">
 						<input type="text" placeholder="Search for ..." class="form-control" th:field="*{searchTerm}" th:errorclass="has-error"/>
 					</div>
-			
+					<div class="form-group">
+						<input type="text" placeholder="consumer key" class="form-control" th:field="*{consumerKey}" th:errorclass="has-error"/>
+					</div>
+					<div class="form-group">
+						<input type="text" placeholder="consumer secret" class="form-control" th:field="*{consumerSecret}" th:errorclass="has-error"/>
+					</div>
 					<button type="submit" class="btn btn-success">Show map</button>
 						
 				</form>
@@ -104,6 +109,8 @@ html, body {
 		<strong><span th:text="#{${message}}" /></strong> <span th:text="${searchForm.searchTerm}" />
 		<ul>
   			<li th:each="err : ${#fields.errors('searchForm.searchTerm')}" th:text="#{${err}}" /> 
+  			<li th:each="err : ${#fields.errors('searchForm.consumerKey')}" th:text="#{${err}}" /> 
+  			<li th:each="err : ${#fields.errors('searchForm.consumerSecret')}" th:text="#{${err}}" /> 
 		</ul>
 		<hr />
 		Tweets: <span th:text="${geoCount}" >-</span> | Tweets with any location description: <span th:text="${geoLocationProvided}">-</span> | Location hits on the map: <span

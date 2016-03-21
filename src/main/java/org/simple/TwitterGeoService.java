@@ -18,24 +18,24 @@ import org.springframework.stereotype.Component;
 public class TwitterGeoService {
 
 	@Autowired
-	private Twitter twitter;
+	private TwitterTemplateCreator twitter;
 
-	public GeoTweet readRaw(String query) {
+	public GeoTweet readRaw(String query, String consumerKey, String consumerSecret) {
 		String encodedQuery =  "";
 		try {
 			encodedQuery = URLEncoder.encode(query, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			//is supported
 		}
-		ResponseEntity<GeoTweet> forEntity = twitter.restOperations().getForEntity(
+		ResponseEntity<GeoTweet> forEntity = twitter.getTwitterTemplate(consumerKey, consumerSecret).restOperations().getForEntity(
 				"https://api.twitter.com/1.1/search/tweets.json?q=" + encodedQuery + "&result_type=recent&count=100&geocode=50,9,1000mi", GeoTweet.class);
 		return forEntity.getBody();
 	}
 
-	public GeoData readExactLocations(String query) {
+	public GeoData readExactLocations(String query, String consumerKey, String consumerSecret) {
 		GeoData data = new GeoData();
 		
-		List<CityLocation> locations = Arrays.asList(readRaw(query).getStatuses()).stream().filter(s-> s != null && s.getGeo() != null && s.getGeo().getCoordinates().length==2).map(s->{
+		List<CityLocation> locations = Arrays.asList(readRaw(query, consumerKey, consumerSecret).getStatuses()).stream().filter(s-> s != null && s.getGeo() != null && s.getGeo().getCoordinates().length==2).map(s->{
 			data.increaseCount();
 				data.increaseProvided();
 				CityLocation cityLocation = new CityLocation(s.getText(),Double.parseDouble(s.getGeo().getCoordinates()[0]), Double.parseDouble(s.getGeo().getCoordinates()[1]), "XX", s.getCreated_at());
